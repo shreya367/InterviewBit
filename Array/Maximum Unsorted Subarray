@@ -1,0 +1,35 @@
+//https://www.interviewbit.com/problems/maximum-unsorted-subarray/
+vector<int> Solution::subUnsort(vector<int> &A) {
+    int start,end,i;
+    int n=A.size();
+    vector<int>ans;
+    for(i=0;i<n-1;i++){
+        if(A[i+1]<A[i]){
+         start=i;
+         end=start+1;
+         break;
+        }
+    }
+    if(i==n-1){ans.push_back(-1); return ans;}
+    int maxste=A[start],minste=A[start];
+    for(int i=start;i<=end;i++){
+        maxste=max(maxste,A[i]);
+        minste=min(minste,A[i]);
+    }
+    for(i=end;i<n-1;i++){
+        if(A[i+1]<A[i]||A[i+1]<maxste){
+         end=i+1;
+         maxste=max(maxste,A[i]);
+         maxste=max(maxste,A[i+1]);
+         minste=min(minste,A[i]);
+         minste=min(minste,A[i+1]);
+        }
+    }
+     for(i=start-1;i>=0;i--){
+        if(A[i]>minste){
+            start=i;
+        }
+    }
+    ans.push_back(start);ans.push_back(end);
+    return ans;
+}

@@ -1,0 +1,67 @@
+/**
+ * @input A : Integer array
+ * @input n1 : Integer array's ( A ) length
+ * 
+ * @Output Integer array. You need to malloc memory, and fill the length in length_of_array
+ */
+int* maxset(int* A, int n1, int *length_of_array) {
+
+     int greatin=0,greatout=0,greatin1=0,number1=0,number=0;
+     long long int n3,i,count=0,k,sum=0,max=0,ini=0,end=0;
+
+     for(i=0;i<n1;i++)
+     {
+         ini=end;
+         if(A[i]>=0)
+         {
+             count=1;
+             number++;
+             sum=sum+A[i];
+             if (sum>max )
+             {
+
+                 max=sum;
+                 greatout=i;
+                 greatin=ini;
+
+             }
+             else if (sum==max && number>number1)
+             {
+                  max=sum;
+                 greatout=i;
+                 greatin=ini;
+             }
+         }
+        else
+        {
+            sum=0;
+            end=i+1;
+            number1=number;
+            number=0;
+
+        }
+     }
+    if(count>0)
+    {
+          count=0;
+          n3=greatout-greatin+1;
+          *length_of_array=n3;
+          int * ret = (int *) malloc(sizeof(int) * *length_of_array);
+
+          for(i=greatin;count<n3;i++)
+          {
+               ret[count]=A[i];
+               count++;
+
+          } 
+     return ret;
+
+    }
+    else
+     {
+
+      *length_of_array=0;
+      int * ret = (int *) malloc(sizeof(int) * *length_of_array);
+      return ret;
+     }
+}

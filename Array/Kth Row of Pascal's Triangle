@@ -1,0 +1,19 @@
+//https://www.interviewbit.com/problems/kth-row-of-pascals-triangle/
+vector<int> Solution::getRow(int k) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    vector<int> v(k+1);
+    if(k==0){
+        v[0]=1;
+        return v;
+    }
+    int c=1;
+    v[0]=c;
+    for(int j=1;j<=k;j++){
+        v[j]=c*(k-j+1)/j;
+        c=v[j];
+    }
+    return v;
+}

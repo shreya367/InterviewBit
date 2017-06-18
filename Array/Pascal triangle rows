@@ -1,0 +1,22 @@
+//https://www.interviewbit.com/problems/pascal-triangle-rows/
+vector<vector<int> > Solution::generate(int A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    vector<vector<int> >v(A);
+    int c=1;
+    for(int i=0;i<A;i++){
+        for(int j=0;j<=i;j++){
+            v[i].push_back(1);
+        }
+    }
+    for(int i=1;i<A;i++){
+        c=1;
+        for(int j=1;j<=i;j++){
+            v[i][j]=c*(i-j+1)/j;
+            c=v[i][j];
+        }
+    }
+    return v;
+}

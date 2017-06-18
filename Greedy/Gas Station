@@ -1,0 +1,25 @@
+int Solution::canCompleteCircuit(const vector<int> &gas, const vector<int> &cost) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    int n=gas.size();
+    if(n==1) return 0;
+    for(int i=0;i<n;i++){
+        int amt=gas[i];
+        if(amt<cost[i])
+         continue;
+        amt=amt-cost[i];
+        int j=(i+1)%n;
+        while(j!=i){
+            amt=amt+gas[j];
+            if(amt<cost[j])
+             break;
+            amt=amt-cost[j];
+            j=(j+1)%n;
+        }
+        if(j==i)
+         return i;
+    }
+    return -1;
+}
