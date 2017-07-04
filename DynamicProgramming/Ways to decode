@@ -1,0 +1,47 @@
+/*
+
+A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+Given an encoded message containing digits, determine the total number of ways to decode it.
+
+Example :
+
+Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
+
+The number of ways decoding "12" is 2.
+
+*/
+
+int Solution::numDecodings(string A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    int n=A.length();
+    vector<int>v;
+    for(int i=0;i<n;i++)
+     v.push_back(A[i]-'0');
+    if(v[0]==0) return 0;
+    int dp[n];
+    for(int i=0;i<n;i++)
+     dp[i]=0;
+    dp[0]=1;
+    for(int i=1;i<n;i++){
+        int x=v[i-1]*10+v[i];
+        if(v[i]==0){
+            if(x>0&&x<27)
+             dp[i]=dp[i-1];
+            else 
+             return 0;
+        }
+        else if(x>0&&x<27&&x!=v[i])
+         dp[i]=dp[i-1]+dp[i-2];
+        else
+         dp[i]=dp[i-1];
+    }
+    return dp[n-1];
+}
