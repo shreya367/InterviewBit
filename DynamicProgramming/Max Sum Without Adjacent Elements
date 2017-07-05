@@ -1,0 +1,49 @@
+/*
+
+Given a 2 * N Grid of numbers, choose numbers such that the sum of the numbers
+is maximum and no two chosen numbers are adjacent horizontally, vertically or diagonally, and return it.
+
+Example:
+
+Grid:
+	1 2 3 4
+	2 3 4 5
+so we will choose
+3 and 5 so sum will be 3 + 5 = 8
+
+
+Note that you can choose more than 2 numbers
+
+*/
+
+int Solution::adjacent(vector<vector<int> > &A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    int n=A[0].size();
+    int dp[2][n];
+    if(n==0) return 0;
+    if(n==1) return max(A[0][0],A[1][0]);
+    int ans=INT_MIN;
+    for(int i=0;i<2;i++){
+     dp[i][n-1]=A[i][n-1];
+     ans=max(ans,dp[i][n-1]);
+    }
+    dp[0][n-2]=A[0][n-2];
+    dp[1][n-2]=A[1][n-2];
+    ans=max(ans,max(dp[0][n-2],dp[1][n-2]));
+    
+    int i=1;
+    for(int j=n-3;j>=0;j--){
+        int maxfromright=INT_MIN;
+        for(int k=j+2;k<n;k++){
+            maxfromright=max(maxfromright,max(dp[0][k],dp[1][k]));
+        }
+        dp[i][j]=max(A[i][j],A[i][j]+maxfromright);
+        dp[i-1][j]=max(A[i-1][j],A[i-1][j]+maxfromright);
+        ans=max(ans,max(dp[i][j],dp[i-1][j]));
+      //  ans=max(ans,maxfromright);
+    }
+    return ans;
+}
