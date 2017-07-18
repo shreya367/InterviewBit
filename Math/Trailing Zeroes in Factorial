@@ -1,0 +1,32 @@
+/*
+Given an integer n, return the number of trailing zeroes in n!.
+
+Note: Your solution should be in logarithmic time complexity.
+
+Example :
+
+n = 5
+n! = 120 
+Number of trailing zeros = 1
+So, return 1
+*/
+
+int nooffives(int x){
+    int a=0;
+    while(x%5==0){
+        x=x/5;
+        a++;
+    }
+    return a;
+}
+int Solution::trailingZeroes(int n) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    int ans=0;
+    for(int i=5;i<=n;i+=5){
+        ans+=nooffives(i);
+    }
+    return ans;
+}
