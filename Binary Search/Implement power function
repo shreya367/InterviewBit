@@ -1,0 +1,37 @@
+/*
+Implement pow(x, n) % d.
+
+In other words, given x, n and d,
+
+find (xn % d)
+
+Note that remainders on division cannot be negative. 
+In other words, make sure the answer you return is non negative.
+
+Input : x = 2, n = 3, d = 3
+Output : 2
+
+2^3 % 3 = 8 % 3 = 2.
+*/
+
+#define ll long long int
+int Solution::pow(int base, int expo, int m) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    if(m==1) return 0;
+    ll ans=1,y=base%m;
+    while(expo>0){
+        if(expo&1)
+         ans=((ans)*y)%m;
+        y=(y*y)%m;
+        if(y<0) y+=m;
+        expo=expo>>1;
+    }
+    if(ans<0){
+        ans=(m-abs(ans)%m);
+        return ans;
+    }
+    return ans%m;
+}
