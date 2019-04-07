@@ -25,15 +25,28 @@ f(6, 2) + f(6, 4) + f(6, 6) =
 */
 
 int Solution::hammingDistance(const vector<int> &A) {
-    long long int ans=0,n=A.size();
-    long long int count;
-    for(int i=0;i<31;i++){
-        count=0;
-        for(int j=0;j<n;j++){
-            if(A[j]&(1<<i))
-             count++;
-        }
-        ans=(ans+count*(n-count)*2)%1000000007;
+    long long int mod = 1000000007;
+    long long int ans = 0;
+    long long int num[63];
+    num[0]=1;
+    for(int j=1;j<63;j++)
+    {
+       num[j]=2*num[j-1];
     }
-    return ans;
+    for(int i=0;i<63;i++)
+    {
+        long long int see = 0;
+        
+        for(long long int j=0;j<A.size();j++)
+        {
+            if((A[j]&num[i])!=0)
+            {
+                see++;
+            }
+        }
+        ans += (2*(see)*(A.size()-see))%mod;
+        ans+=mod;
+        ans%=mod;
+    }
+    return (int)ans;
 }
