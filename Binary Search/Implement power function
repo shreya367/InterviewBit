@@ -35,3 +35,36 @@ int Solution::pow(int base, int expo, int m) {
     }
     return ans%m;
 }
+
+// Implement Power Function in Java - Recursive
+public class Solution {
+    public int pow(int x, int n, int d) {
+        if(x<0 && n%2==0){
+            return (int)pow2(-x, n, d);
+        }
+        if(x<0 && n%2!=0){
+            return d - (int)pow2(-x, n, d);
+        }
+        return (int)pow2(x, n, d);
+    }
+    
+    public long pow2(int x, int n, int d){
+        if(x==0){
+            return 0;
+        }
+        if(n==1){
+            return x;
+        }
+        if(n==0){
+            return 1;
+        }
+        
+        long rr = pow2(x, n/2, d);
+        if(n%2==0){
+            return (rr%d * rr%d)%d;
+        }else{
+            return (rr%d * rr%d * x%d)%d;
+        }
+    }
+}
+
