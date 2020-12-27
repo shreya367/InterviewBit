@@ -1,5 +1,5 @@
 /*
-
+Code Available in C++ & Java8
 Given a non-negative number represented as an array of digits,
 
 add 1 to the number ( increment the number represented by the digits ).
@@ -22,7 +22,7 @@ Q : Can the output have 0’s before the most significant digit? Or in other wor
 A : For the purpose of this question, NO. Even if the input has zeroes before the most significant digit.
 
 */
-
+//C++ code
 vector<int> Solution::plusOne(vector<int> &A) {
     // Do not write main() function.
     // Do not read input, instead use the arguments to the function.
@@ -45,4 +45,80 @@ vector<int> Solution::plusOne(vector<int> &A) {
        res.erase(res.begin());
     }
     return res;
+}
+
+
+// Java 8 code
+public class Solution {
+    public int[] plusOne(int[] A) {
+        int n= A.length;
+        if(A[0]==0 && n==1){
+            A[0]++;
+            return A;   
+        }
+        else if(A[0]==0 && n>1){
+            int cnt=0,j=0;
+            while(A[j]==0){
+                cnt++;
+                j++;
+            }
+            int x = n-cnt;
+            int[] C = new int[x];
+            for(int i =0;i<x;i++){
+                C[i]=A[i+cnt];
+            }
+            C=reverse(C,x);
+            int carry=1;
+            for(int i = 0; i<n;i++){
+                if(carry == 1){
+                    C[i]+=1;
+                    carry = C[i] / 10; 
+                    C[i]=C[i]%10;
+                }
+            }
+            C=reverse(C,x);
+            if(carry == 1){
+                int[] B = new int[x+1];
+                B[0]=1;
+                for(int i=0;i<n;i++){
+                    B[i+1]=C[i];
+                }
+                return B;
+            }
+            return C;
+        }
+        else{
+            A=reverse(A,n);
+            int carry=1;
+            for(int i = 0; i<n;i++){
+                if(carry == 1){
+                    A[i]+=1;
+                    carry = A[i] / 10; 
+                    A[i]=A[i]%10;
+                }
+            }
+            A=reverse(A,n);
+            if(carry == 1){
+                int[] B = new int[n+1];
+                B[0]=1;
+                for(int i=0;i<n;i++){
+                    B[i+1]=A[i];
+                }
+                return B;
+            }
+            
+            return A;
+        }
+    }
+    
+    static int[] reverse(int a[], int n) 
+    { 
+        int i, k, t; 
+        for (i = 0; i < n / 2; i++) { 
+            t = a[i]; 
+            a[i] = a[n - i - 1]; 
+            a[n - i - 1] = t; 
+        }
+        return a;
+    }
 }
