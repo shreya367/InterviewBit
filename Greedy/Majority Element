@@ -22,3 +22,29 @@ int Solution::majorityElement(const vector<int> &B) {
          return ans;
     }
 }
+
+
+Alternative solution approach that will make the solution in O(N) time complexity and without any auxiliary space!
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int currentm=2;
+        int f=0;
+        for(int i:nums){
+            if(f==0){
+                currentm=i;
+                f=1;
+            }
+            else if(currentm==i){
+                f++;
+            }
+            else if(currentm!=i){
+                f--;
+            }
+        }
+        return currentm;
+    }
+}; 
+
+
